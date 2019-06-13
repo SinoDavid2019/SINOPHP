@@ -240,4 +240,12 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
+    //验证码相关配置
+    'captcha' => [
+        'imageH' => 42,
+        'imageW' => 200,
+        'length' => 4,
+        'codeSet' => '1234567890',
+        'fontSize' => 20
+    ]
 ];
