@@ -15,7 +15,12 @@ use think\Controller;
  */
 class Image extends Base{
     public function upload(){
-        return 1;
+        $data=[
+            'status'=>1,
+            'message'=>'OK',
+            'data'=>'https://cache.yisu.com/www/images/weixin_help.png'
+        ];
+        echo json_encode($data);
     }
 
 }
