@@ -11,11 +11,25 @@ namespace app\admin\controller;
 use think\Controller;
 use app\common\lib\IAuth;
 
-class Login extends Controller
+class Login extends Base
 {
+    /**
+     * 覆盖Base下的_initialize()方法，以防重定向次数死循环
+     */
+    public  function _initialize()
+    {
+
+    }
+
     public function index()
     {
-        return $this->fetch();
+        //判断用户是否登录，如果登录则跳转到后台页面，否则渲染Login模板页面
+        $isLogin=$this->isLogin();
+        if($isLogin){
+           return    $this->redirect('index/index');
+        }else{
+            return $this->fetch();
+        }
     }
 
     public function check()
