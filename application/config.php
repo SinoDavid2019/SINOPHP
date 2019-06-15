@@ -238,7 +238,7 @@ return [
     'paginate'               => [
         'type'      => 'bootstrap',
         'var_page'  => 'page',
-        'list_rows' => 15,
+        'list_rows' => 10,
     ],
     //验证码相关配置
     'captcha' => [

@@ -10,3 +10,19 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+/**
+ * 获取栏目名称
+ * @param $catId
+ */
+function getCatName($catId) {
+    if(!$catId) {
+        return '';
+    }
+    $cats = config('cat.lists');
+
+    return !empty($cats[$catId]) ? $cats[$catId] : '';
+}
+
+function isYesNo($str) {
+    return $str ? '<span style="color:red"> 是</span>' : '<span > 否</span>';
+}

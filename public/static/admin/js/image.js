@@ -5,7 +5,7 @@ $(function() {
         buttonText:'上传图片',
         fileTypeDesc: 'Image files',
         fileObjName: 'file',
-        fileTypeExts: '*.gif;*.jpeg;*.png',
+        fileTypeExts: '*.gif;*.jpeg;*.png;*.jpg',
         onUploadSuccess:function (file,data,response) {
             if(response){
                 var obj=JSON.parse(data);
