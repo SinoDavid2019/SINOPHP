@@ -1,16 +1,13 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: sino
- * Date: 2019/6/13
- * Time: 10:23
+ * User: Administrator
+ * Date: 2019/6/14
+ * Time: 22:40
  */
-
 namespace app\common\model;
-
 use think\Model;
 
-class AdminUser extends Base
-{
+class News extends  Base{
 
 }
