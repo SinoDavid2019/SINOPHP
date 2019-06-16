@@ -23,6 +23,32 @@ function getCatName($catId) {
     return !empty($cats[$catId]) ? $cats[$catId] : '';
 }
 
+/**
+ * 判断是否是推荐
+ * @param $str
+ * @return string
+ */
 function isYesNo($str) {
     return $str ? '<span style="color:red"> 是</span>' : '<span > 否</span>';
+}
+
+/**
+ * 发布状态
+ */
+function publish_status($id,$status){
+    $controller=request()->controller();
+    $sta=$status==1?0:1;
+    $url=url($controller.'/status',['id'=>$id,'status'=>$sta]);
+    if($status==1){
+        $str="<a href='javascript:;' title='修改发布状态' status_url='".$url."' onclick='change_status(this)'>
+              <span class='label label-success radius'>正常</span>
+              </a>";
+    }elseif ($status==0){
+        $str="<a href='javascript:;' title='修改发布状态' status_url='".$url."' onclick='change_status(this)'>
+              <span class='label label-danger radius'>待审</span>
+              </a>";
+    }
+
+    return $str;
+
 }

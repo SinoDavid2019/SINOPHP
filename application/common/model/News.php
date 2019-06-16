@@ -45,4 +45,14 @@ class News extends Base
         return $this->where($condition)->count();
     }
 
+    public function getNewsByID($condition=[]){
+        $condition['status'] = [
+            'neq', config('statusCode.status_delete')
+        ];
+
+        return $this->where($condition)->select();
+
+
+    }
+
 }

@@ -25,6 +25,11 @@ class Base extends Controller{
      */
     public $size='';
     /**
+     * 定义model
+     * @var string
+     */
+    public $model='';
+    /**
      * 查询条件的起始值
      * @var int
      */
@@ -63,4 +68,72 @@ class Base extends Controller{
         $this->size=!empty($data['size'])?$data['size']:config('paginate.list_rows');
         $this->from=( $this->page-1)*$this->size;
     }
+    /**
+     * 删除
+     */
+    public function delete($id=0){
+        if(!intval($id)){
+            return $this->result('',0,'ID不合法');
+        }
+        $model=$this->model?$this->model:request()->controller();
+        try{
+            $result=model($model)->save(['status'=>-1],['id'=>$id]);
+        }catch (\Exception $exception){
+
+            return $this->result('',0,$exception->getMessage());
+        }
+        if($result){
+            return $this->result(['jump_url'=>$_SERVER['HTTP_REFERER']],1,'删除成功');
+        }
+        return $this->result('',0,'删除失败');
+
+    }
+
+    /**
+     * 修改状态
+     */
+    public function status(){
+        $data=input('param.');
+
+        $model=$this->model?$this->model:request()->controller();
+        try{
+            $result=model($model)->save(['status'=>$data['status']],['id'=>$data['id']]);
+        }catch (\Exception $exception){
+
+            return $this->result('',0,$exception->getMessage());
+        }
+        if($result){
+            return $this->result(['jump_url'=>$_SERVER['HTTP_REFERER']],1,'修改成功');
+        }
+        return $this->result('',0,'修改失败');
+
+    }
+
+    /**
+     * 修改状态
+     */
+    public function update(){
+        $data=input('param.');
+        $model=$this->model?$this->model:request()->controller();
+        try{
+            $result=model($model)->save([
+                'title'=>$data['title'],
+                'small_title'=>$data['small_title'],
+                'content'=>$data['content'],
+                'image'=>$data['image'],
+                'is_position'=>$data['is_position'],
+                'is_head_figure'=>$data['is_head_figure']
+            ],['id'=>$data['id']]);
+        }catch (\Exception $exception){
+
+            return $this->result('',0,$exception->getMessage());
+        }
+        if($result){
+            return $this->result(['jump_url'=>url('news/index')],1,'OK');
+        }
+        return $this->result('',0,'修改失败');
+
+    }
+
+
 }

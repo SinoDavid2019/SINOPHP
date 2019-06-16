@@ -44,6 +44,11 @@ class News extends Base{
             'query'=>$query
         ]);
     }
+
+    /**
+     * 新增资讯
+     * @return mixed|void
+     */
     public function add(){
         if(request()->ispost()){
             $data=input('post.');
@@ -63,4 +68,37 @@ class News extends Base{
             'cats'=>config('cat.lists')
         ]);
     }
+
+    /**
+     * 查询资讯信息（编辑查询）
+     * @return mixed|void
+     */
+    public function edit(){
+        //return $this->fetch();
+        $data=input('param.');
+        $whereData=[];
+        //halt($data['id']);
+        if(!empty($data['id'])){
+            $whereData['id']=intval($data['id']);
+        }
+        try{
+            $new=model('News')->getNewsByID($whereData);
+        }catch (\Exception $exception){
+            return $this->result('',0,'查询失败');
+        }
+        if($new){
+
+            return $this->fetch('',[
+                'cats'=>config('cat.lists'),
+                'new'=>$new
+            ]);
+        }else{
+            return $this->result('',0,'查询失败');
+        }
+
+    }
+
+
+
+
 }
