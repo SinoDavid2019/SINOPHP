@@ -121,8 +121,9 @@ class Base extends Controller{
                 'small_title'=>$data['small_title'],
                 'content'=>$data['content'],
                 'image'=>$data['image'],
-                'is_position'=>$data['is_position'],
-                'is_head_figure'=>$data['is_head_figure']
+                'is_position'=>!empty($data['is_position'])?1:0,
+                'is_head_figure'=>!empty($data['is_head_figure'])?1:0,
+                'is_allowcomments'=>!empty($data['is_allowcomments'])?1:0
             ],['id'=>$data['id']]);
         }catch (\Exception $exception){
 
