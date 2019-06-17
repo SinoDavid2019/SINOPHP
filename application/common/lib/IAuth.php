@@ -53,15 +53,20 @@ class IAuth
         if(!is_array($arr) || empty($arr['admin']) || $arr['admin']!=$data['admin']){
             return false;
         }
-        if((time()-ceil($arr['time']/1000))>config('app.app_sign_time')){
-            return false;
-        }
 
-        //sign唯一性判定
-        if(Cache::get($data['sign'])){
-            return false;
+        //如果app_debug模式开启则不进行sign时间及唯一性的校验
+       if(!config('app_debug')){
 
-        }
+           if((time()-ceil($arr['time']/1000))>config('app.app_sign_time')){
+               return false;
+           }
+
+           //sign唯一性判定
+           if(Cache::get($data['sign'])){
+               return false;
+
+           }
+       }
 
         return true;
 

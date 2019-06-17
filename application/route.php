@@ -18,3 +18,5 @@ Route::delete('test/:id','api/test/delete');
  * resource对于7种形式的访问方式,根据路由地址及携带的参数对应不同控制器的方法
  */
 Route::resource('test','api/test');//对应save方法
+
+Route::get('api/cat','api/cat/read');
