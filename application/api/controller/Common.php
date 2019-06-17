@@ -9,6 +9,8 @@ namespace app\api\controller;
 use app\common\lib\Aes;
 use app\common\lib\exception\ApiException;
 use app\common\lib\IAuth;
+use app\common\lib\Time;
+use think\Cache;
 use think\Controller;
 
 
@@ -40,6 +42,7 @@ class Common extends Controller{
         //获取http请求头数据
         $headers=request()->header();
 
+        //基础参数校验
         if(empty($headers['sign'])){
             throw new ApiException('sign不存在',400);
         }
@@ -51,6 +54,9 @@ class Common extends Controller{
             throw new ApiException('授权码sign失败',401);
         }
 
+        //sign写入缓存
+        Cache::set($headers['sign'],1,config('app.app_sign_cache_time'));
+
         $this->headers=$headers;
 
     }
@@ -58,11 +64,14 @@ class Common extends Controller{
     public function testAes(){
         $data=[
             'admin'=>'dasdadasd',
-            'password'=>'123456'
+            'password'=>'123456',
+            'time'=>Time::get13TimeStamp()
         ];
-        $str='7ecb9b129dd4ad0a6975e0bff0693505ab12180a570a6e93f1dcdfaffa2f3ae9';
+        halt($data);
+        //$str='7ecb9b129dd4ad0a6975e0bff0693505d48399696ac99b042269b39957fbb2ba161ce379ac6b3ef5e60c03f29ad69f97ff7984314f477dd993e6deb4d8f0e21a';
         //$str=IAuth::setSign($data);
-        echo (new Aes())->decrypt($str);
+        //echo $str;
+        //echo (new Aes())->decrypt($str);
     }
 
 }

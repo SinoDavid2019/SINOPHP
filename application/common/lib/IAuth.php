@@ -7,6 +7,8 @@
  */
 
 namespace app\common\lib;
+use think\Cache;
+
 class IAuth
 {
     /**
@@ -50,6 +52,15 @@ class IAuth
         parse_str($str,$arr);
         if(!is_array($arr) || empty($arr['admin']) || $arr['admin']!=$data['admin']){
             return false;
+        }
+        if((time()-ceil($arr['time']/1000))>config('app.app_sign_time')){
+            return false;
+        }
+
+        //sign唯一性判定
+        if(Cache::get($data['sign'])){
+            return false;
+
         }
 
         return true;
