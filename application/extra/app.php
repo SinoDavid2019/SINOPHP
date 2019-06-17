@@ -6,5 +6,7 @@
  * Time: 14:16
  */
 return [
-    'password_pre_halt' => '#@!_WeiHL'//密码加密盐
+    'password_pre_halt' => '#@!_WeiHL',//密码加密盐
+    'aeskey'=>'WHLSDEE12385747887@#$_147447444',//aes加密串
+    'apptypes'=>['Ios','Android']
 ];

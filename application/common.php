@@ -52,3 +52,20 @@ function publish_status($id,$status){
     return $str;
 
 }
+
+/**
+ * 通用API返回客户端数据
+ * @param $status
+ * @param $message
+ * @param array $data
+ * @param int $httpCode
+ * @return \think\response\Json
+ */
+function show($status,$message,$data=[],$httpCode=200){
+    $result=[
+        'status'=>$status,
+        'message'=>$message,
+        'data'=>$data
+    ];
+    return json($result,$httpCode);
+}
