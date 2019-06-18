@@ -101,4 +101,20 @@ class News extends Base
         return ['id','catid','title','status','image','read_count','create_time','is_position'];
     }
 
+    /**
+     * 获取排行前十的新闻数据
+     * @param int $num
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getRankNews($num=10){
+        $condition=[
+            'status'=>1
+        ];
+        $order=['read_count'=>'desc'];
+        return $this->where($condition)->order($order)->field($this->_getQueryList())->limit($num)->select();
+    }
+
 }

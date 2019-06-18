@@ -27,3 +27,10 @@ Route::get('api/:ver/index','api/:ver.index/index');
 
 //获取栏目对应的数据
 Route::get('api/:ver/news','api/:ver.news/index');
+
+//获取浏览次数排行前十的新闻数据
+
+Route::get('api/:ver/rank','api/:ver.rank/index');
+
+//News的资源路由
+Route::resource('api/:ver/news','api/:ver.news');
