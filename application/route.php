@@ -20,3 +20,10 @@ Route::delete('test/:id','api/test/delete');
 Route::resource('test','api/test');//对应save方法
 
 Route::get('api/:ver/cat','api/:ver.cat/read');
+
+
+//获取首页头图路由
+Route::get('api/:ver/index','api/:ver.index/index');
+
+//获取栏目对应的数据
+Route::get('api/:ver/news','api/:ver.news/index');

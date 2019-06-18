@@ -27,12 +27,15 @@ class Common extends Controller{
      */
     public $headers='';
 
+    public $page=1;
+    public $size=10;
+    public $from=0;
+
     /**
      * 初始化方法
      */
     public function _initialize(){
         $this->checkRequestAuth();
-        //$this->testAes();
     }
 
     /**
@@ -61,17 +64,31 @@ class Common extends Controller{
 
     }
 
-    public function testAes(){
-        $data=[
-            'admin'=>'dasdadasd',
-            'password'=>'123456',
-            'time'=>Time::get13TimeStamp()
-        ];
-        halt($data);
-        //$str='7ecb9b129dd4ad0a6975e0bff0693505d48399696ac99b042269b39957fbb2ba161ce379ac6b3ef5e60c03f29ad69f97ff7984314f477dd993e6deb4d8f0e21a';
-        //$str=IAuth::setSign($data);
-        //echo $str;
-        //echo (new Aes())->decrypt($str);
+    /**
+     * 组装返回的数据
+     * @param $news
+     * @return array
+     */
+    public function getDealNews($news){
+        if(empty($news)){
+            return [];
+        }
+
+        $cats=config('cat.lists');
+        foreach ($news as $key=>$new){
+            $news[$key]['catname']=$cats[$new['catid']];
+        }
+
+        return $news;
+    }
+
+    /**
+     * 获取分页的page和size
+     */
+    public function  getPageAndSize($data){
+        $this->page=!empty($data['page'])?$data['page']:1;
+        $this->size=!empty($data['size'])?$data['size']:config('paginate.list_rows');
+        $this->from=( $this->page-1)*$this->size;
     }
 
 }
