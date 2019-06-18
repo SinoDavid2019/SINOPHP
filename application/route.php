@@ -19,4 +19,4 @@ Route::delete('test/:id','api/test/delete');
  */
 Route::resource('test','api/test');//对应save方法
 
-Route::get('api/cat','api/cat/read');
+Route::get('api/:ver/cat','api/:ver.cat/read');

@@ -6,6 +6,7 @@
  * Time: 13:41
  */
 namespace app\admin\controller;
+use app\common\lib\Upload;
 use think\Controller;
 use think\Request;
 
@@ -15,7 +16,10 @@ use think\Request;
  * @package app\admin\controller
  */
 class Image extends Base{
-    public function upload(){
+    /**
+     * 上传图片到本地服务器
+     */
+    public function upload0(){
 
         $file=Request::instance()->file('file');
         $info=$file->move('upload');
@@ -28,6 +32,25 @@ class Image extends Base{
             echo json_encode($data);exit;
         }
        echo json_encode(['status'=>0,'message'=>'上传失败']);
+    }
+
+    /**
+     * 上传文件到七牛云
+     */
+    public function upload(){
+
+        $img=Upload::image();
+        if($img){
+            $data=[
+                'status'=>1,
+                'message'=>'OK',
+                'data'=>config('qiniu.image_url')."/".$img
+            ];
+            echo json_encode($data);exit;
+        }else{
+            echo json_encode(['status'=>0,'message'=>'上传失败']);
+        }
+
     }
 
 }

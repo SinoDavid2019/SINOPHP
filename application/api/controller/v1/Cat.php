@@ -5,9 +5,11 @@
  * Date: 2019/6/17
  * Time: 21:23
  */
-namespace app\api\controller;
+namespace app\api\controller\v1;
+use think\Controller;
+use app\api\controller\Common;
 
-class Cat extends Common{
+class Cat extends Common {
 
     /**
      * 获取配置文件中栏目数据
