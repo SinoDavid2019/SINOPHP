@@ -6,10 +6,8 @@
  * Time: 14:25
  */
 namespace app\api\controller;
-use app\common\lib\Aes;
 use app\common\lib\exception\ApiException;
 use app\common\lib\IAuth;
-use app\common\lib\Time;
 use think\Cache;
 use think\Controller;
 

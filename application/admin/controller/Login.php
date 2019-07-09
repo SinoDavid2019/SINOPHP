@@ -10,6 +10,7 @@ namespace app\admin\controller;
 
 use think\Controller;
 use app\common\lib\IAuth;
+use think\Session;
 
 class Login extends Base
 {
@@ -21,60 +22,81 @@ class Login extends Base
 
     }
 
-    public function index()
-    {
-        //判断用户是否登录，如果登录则跳转到后台页面，否则渲染Login模板页面
+    public function index(){
         $isLogin=$this->isLogin();
         if($isLogin){
-           return    $this->redirect('index/index');
+            return    $this->redirect('index');
         }else{
             return $this->fetch();
         }
     }
 
-    public function check()
+    public function login()
     {
-        if (request()->isPost()) {
-            $data = input('post.');
-            if (!captcha_check($data['code'])) {
-                $this->error('验证码错误');
-            }
-            $validate = validate('AdminUser');
-            if (!$validate->check($data)) {
-                $this->error($validate->getError());
-            } else {
-                try {
-                    $user = model('AdminUser')->get(['username' => $data['username']]);
 
-                } catch (\Exception $exception) {
-                    $this->error($exception->getMessage());
+        if(Session::get(config('admin.session_user'))){
+            $this->redirect('admin/index/index');
+        }else{
+
+            if(request()->isPost()){
+                $name=input("name");
+                $pwd=input("pwd");
+                $is_rem=input("is_rem");
+                if ($is_rem!=1){
+                    $pwd=IAuth::setPassword($pwd);
                 }
-                if (!$user || $user->status != config('statusCode.status_normal')) {
-                    $this->error('该用户不存在');
-                } else {
-                    if (IAuth::setPassword($data['password']) != $user->password) {
-                        $this->error('密码不正确');
-                    } else {
-
-                        $update = [
-                            'last_login_time' => time(),
-                            'last_login_ip' => request()->ip()
-                        ];
-                        try {
-                            model('AdminUser')->save($update, ['id' => $user->id]);
-                        } catch (\Exception $exception) {
-                            $this->error($exception->getMessage());
-                        }
-
-                    }
+                $captcha=input("captcha");
+                $rempsw=input("rempsw");
+                if (empty($name)||empty($pwd)||empty($captcha)){
+                    $this->error("用户名或密码,验证码不可为空");
                 }
 
-                session(config('admin.session_user'), $user,config('admin.session_user_scope'));
-                $this->success('登录成功', 'index/index');
-            }
+                $userInfo = model('AdminUser')->get(['username' => $name]);
 
-        } else {
-            $this->error('请求不合法');
+                if(empty($userInfo)){
+                    $this->error("当前用户不存在或者用户名错误");
+                }
+
+                //验证密码
+                if($pwd!=$userInfo->password){
+                    $this->error("密码错误请从新输入");
+                }
+
+                if(!captcha_check($captcha)){
+                    $this->error('验证码错误');
+                }
+
+                //判断用户是否记住密码
+                if ($rempsw==1){
+                    //记住密码   存cookie中
+                    \cookie('cu',trim($name),3600*24*30);
+                    \cookie('CSDFDSA',trim($pwd),3600*24*30);
+                }else{
+                    //删除cookie、
+                    Cookie::delete('cu');
+                    Cookie::delete("CSDFDSA");
+                }
+
+                $update=[
+                    'last_login_time'=>time(),
+                    'last_login_ip'=>request()->ip()
+                ];
+                model('AdminUser')->save($update, ['id' => $userInfo->id]);
+
+                Session::set(config('admin.session_user'),$userInfo->id);
+                $this->redirect('index/index');
+
+
+
+            }else{
+                $name = Cookie::get('cu');
+                $pwd = Cookie::get('CSDFDSA');
+                if($name && $pwd) {
+                    $this->assign('name',$name);
+                    $this->assign('pwd',$pwd);
+                }
+                return $this->fetch("login");
+            }
         }
 
     }
