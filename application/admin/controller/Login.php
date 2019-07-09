@@ -8,28 +8,14 @@
 
 namespace app\admin\controller;
 
-use think\Controller;
 use app\common\lib\IAuth;
+use think\Controller;
+use think\Cookie;
 use think\Session;
 
-class Login extends Base
+class Login extends Controller
 {
-    /**
-     * 覆盖Base下的_initialize()方法，以防重定向次数死循环
-     */
-    public  function _initialize()
-    {
 
-    }
-
-    public function index(){
-        $isLogin=$this->isLogin();
-        if($isLogin){
-            return    $this->redirect('index');
-        }else{
-            return $this->fetch();
-        }
-    }
 
     public function login()
     {
@@ -40,6 +26,7 @@ class Login extends Base
 
             if(request()->isPost()){
                 $name=input("name");
+                echo $name;
                 $pwd=input("pwd");
                 $is_rem=input("is_rem");
                 if ($is_rem!=1){
@@ -83,8 +70,8 @@ class Login extends Base
                 ];
                 model('AdminUser')->save($update, ['id' => $userInfo->id]);
 
-                Session::set(config('admin.session_user'),$userInfo->id);
-                $this->redirect('index/index');
+                Session::set(config('admin.session_user'),$userInfo);
+                $this->success("登录成功");
 
 
 
@@ -103,7 +90,7 @@ class Login extends Base
 
     public function  logout(){
         session(null,config('admin.session_user_scope'));
-        $this->redirect('login/index');
+        $this->redirect('login/login');
     }
 
     public function welcome()

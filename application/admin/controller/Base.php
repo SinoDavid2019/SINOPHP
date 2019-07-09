@@ -7,6 +7,7 @@
  */
 namespace app\admin\controller;
 use think\Controller;
+use think\Session;
 
 /**
  * 后台基础类库
@@ -39,9 +40,10 @@ class Base extends Controller{
      * 重写_initialize()方法
      */
     public function _initialize(){
-        $isLogin=$this->isLogin();
-        if(!$isLogin){
-            return $this->redirect('login/index');
+        $admin_id=Session::get(config('admin.session_user'));
+
+        if(empty($admin_id)){
+            $this->redirect("admin/login/login");
         }
 
     }
@@ -51,7 +53,7 @@ class Base extends Controller{
      * @return bool
      */
     public function isLogin(){
-        $user=session(config('admin.session_user'),'',config('admin.session_user_scope'));
+        $user=Session::get(config('admin.session_user'));
         if($user && $user->id){
             return true;
 
