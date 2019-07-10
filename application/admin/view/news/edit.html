@@ -22,7 +22,7 @@
                 <span class="select-box">
                     <select id="catid" name="catid" class="select">
                     {volist name='cats' id='vo1'}
-                       <option  value="{$key}">{$vo1}</option>
+                       <option  value="{$key}" {if condition="$vo.catid eq $key"}selected{/if}>{$vo1}</option>
                     {/volist}
                     </select>
 				</span>
