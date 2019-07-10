@@ -1,6 +1,6 @@
 {include file="public/_meta" /}
 <article class="page-container">
-    <form class="form form-horizontal" id="form-singwaapp" url="{:url('news/add')}">
+    <form class="form form-horizontal" id="form-singwaapp">
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>文章标题：</label>
             <div class="formControls col-xs-8 col-sm-9">
@@ -10,7 +10,7 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">简略标题：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="" placeholder="" id="samll_title" name="small_title">
+                <input type="text" class="input-text" value="" placeholder="" id="small_title" name="small_title">
             </div>
         </div>
         <div class="row cl">
@@ -18,7 +18,7 @@
                 <span class="c-red">*</span>分类栏目：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <span class="select-box">
-                    <select name="catid" class="select">
+                    <select id="catid" name="catid" class="select">
                         {volist name="cats" id="vo"}
                       <option value="{$key}">{$vo}</option>
                         {/volist}
@@ -37,27 +37,39 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">允许评论：</label>
             <div class="formControls col-xs-8 col-sm-9 skin-minimal">
-                <div class="check-box">
-                    <input type="checkbox" id="is_allowcomments" name="is_allowcomments" value="0">
-                    <label for="checkbox-pinglun">&nbsp;</label>
+                <div class="radio-box">
+                    <input type="radio" id="is_allowcomments-1" name="is_allowcomments" value="1" checked>
+                    <label for="is_allowcomments-1">是</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="is_allowcomments-0" name="is_allowcomments" value="0">
+                    <label for="is_allowcomments-0">否</label>
                 </div>
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">是否推荐到首页头图：</label>
             <div class="formControls col-xs-8 col-sm-9 skin-minimal">
-                <div class="check-box">
-                    <input type="checkbox" id="is_head_figure" name="is_head_figure" value="0">
-                    <label for="checkbox-pinglun">&nbsp;</label>
+                <div class="radio-box">
+                    <input type="radio" id="is_head_figure-1" name="is_head_figure" value="1"  checked>
+                    <label for="is_head_figure-1">是</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="is_head_figure-0" name="is_head_figure" value="0">
+                    <label for="is_head_figure-0">否</label>
                 </div>
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">是否推荐：</label>
             <div class="formControls col-xs-8 col-sm-9 skin-minimal">
-                <div class="check-box">
-                    <input type="checkbox" id="is_position" name="is_position" value="0">
-                    <label for="checkbox-pinglun">&nbsp;</label>
+                <div class="radio-box">
+                    <input type="radio" id="is_position-1" name="is_position" value="1"  checked>
+                    <label for="is_position-1">是</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="is_position-0" name="is_position" value="0">
+                    <label for="is_position-0">否</label>
                 </div>
             </div>
         </div>
@@ -77,8 +89,7 @@
         </div>
         <div class="row cl">
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-                <button  class="btn btn-secondary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
-                <button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                <button  class="btn btn-secondary radius" onClick="check()"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
             </div>
         </div>
     </form>
@@ -122,13 +133,63 @@
             focusCleanup: true,
             success: "valid",
             submitHandler: function (form) {
-                singwaapp_save(form);// 需要小伙伴自定义一个singwaapp_save方法 用来处理抛送请求的哦
             }
         });
 
         var ue = UE.getEditor('editor');
 
     });
+
+    function check() {
+        var title=$.trim($('#title').val());
+        var catid=$('#catid').val();
+        var description=$.trim($('#description').val());
+        var small_title=$.trim($('#small_title').val());
+        var is_allowcomments=$('input[name=is_allowcomments]:checked').val();
+        var is_head_figure=$('input[name=is_head_figure]:checked').val();
+        var is_position=$('input[name=is_position]:checked').val();
+        var content=$('#ueditor_textarea_content').val();
+        var image=$('#upload_org_code_img').attr('src');
+        if(title=="" || catid==""||small_title==""){
+            layer.msg('请填写信息',{icon:2,time:2000});
+            return false;
+        }
+        var formData = new FormData();
+        formData.append("title", title);
+        formData.append("small_title", small_title);
+        formData.append("catid", catid);
+        formData.append("description", description);
+        formData.append("is_allowcomments", is_allowcomments);
+        formData.append("is_head_figure", is_head_figure);
+        formData.append("is_position", is_position);
+        formData.append("content", content);
+        formData.append("image", image);
+        $.ajax({
+            url:"{:url('admin/news/add')}",
+            type:'POST',
+            data:formData,
+            cache: false,
+            contentType: false,    //不可缺
+            processData: false,    //不可缺
+            success:function(data){
+                var msg=data.msg;
+                if(data.code == 1){
+                    layer.msg(msg, {
+                        icon: 1,
+                        time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                    }, function(){
+                        var index = parent.layer.getFrameIndex(window.name);
+                        // parent.$('.btn-primary').click();
+                        window.parent.location.reload();
+                        parent.layer.close(index);
+                    });
+                }else{
+                    layer.msg(msg,{icon:2,time:2000});
+                }
+            }
+        });
+
+    }
 
 </script>
 </body>

@@ -122,11 +122,12 @@ class Base extends Controller{
                 'title'=>$data['title'],
                 'small_title'=>$data['small_title'],
                 'content'=>$data['content'],
+                'catid'=>$data['catid'],
                 'image'=>$data['image'],
                 'is_position'=>!empty($data['is_position'])?1:0,
                 'is_head_figure'=>!empty($data['is_head_figure'])?1:0,
-                'is_allowcomments'=>!empty($data['is_allowcomments'])?1:0
-            ],['id'=>$data['id']]);
+                'is_allowcomments'=>!empty($data['is_allowcomments'])?1:0],
+                ['id'=>$data['id']]);
         }catch (\Exception $exception){
 
             return $this->result('',0,$exception->getMessage());

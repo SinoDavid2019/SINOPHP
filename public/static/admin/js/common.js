@@ -87,25 +87,6 @@ function change_status(obj) {
  * @param w
  * @param h
  */
-function article_add(title, url, w, h) {
-    layer.open({
-        type: 2,//Page层类型,
-        area: ['1000px', '800px'],
-        title: title,
-        shade: 0.6, //遮罩透明度
-        maxmin: true, //允许全屏最小化
-        anim: 1, //0-6的动画形式，-1不开启
-        content: url
-    });
-}
-
-/**
- * 添加资讯
- * @param title
- * @param url
- * @param w
- * @param h
- */
 function article_edit(obj, title, url, w, h) {
     console.log(obj);
 

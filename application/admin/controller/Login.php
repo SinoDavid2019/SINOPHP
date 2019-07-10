@@ -26,7 +26,6 @@ class Login extends Controller
 
             if(request()->isPost()){
                 $name=input("name");
-                echo $name;
                 $pwd=input("pwd");
                 $is_rem=input("is_rem");
                 if ($is_rem!=1){
@@ -65,7 +64,7 @@ class Login extends Controller
                 }
 
                 $update=[
-                    'last_login_time'=>time(),
+                    'last_login_time'=>date('Y-m-d H:i:s', time()),
                     'last_login_ip'=>request()->ip()
                 ];
                 model('AdminUser')->save($update, ['id' => $userInfo->id]);
@@ -89,8 +88,8 @@ class Login extends Controller
     }
 
     public function  logout(){
-        session(null,config('admin.session_user_scope'));
-        $this->redirect('login/login');
+      Session::delete(config('admin.session_user'));
+        $this->redirect('admin/login/login');
     }
 
     public function welcome()

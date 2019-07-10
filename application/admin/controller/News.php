@@ -58,9 +58,9 @@ class News extends Base{
                 return $this->result('',0,'新增失败');
             }
             if($id){
-                return $this->result(['jump_url'=>url('news/index')],1,'OK');
+                 $this->success("新增成功");
             }else{
-                return $this->result('',0,'新增失败');
+                 $this->error("新增失败");
             }
 
         }
