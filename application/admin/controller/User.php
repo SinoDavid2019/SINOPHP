@@ -85,4 +85,39 @@ class User extends Controller
 
     }
 
+    public function userExcel(){
+
+        $users = UserModel::all();     //数据库查询
+        $path = dirname(__FILE__); //找到当前脚本所在路径
+
+        vendor("PHPExcel.PHPExcel"); //方法一
+
+        $PHPExcel = new \PHPExcel();
+        $PHPSheet = $PHPExcel->getActiveSheet();
+        $PHPSheet->setTitle("demo"); //给当前活动sheet设置名称
+        $PHPSheet->setCellValue("A1", "ID")
+            ->setCellValue("B1", "用户名")
+            ->setCellValue("C1", "邮箱")
+            ->setCellValue("D1", "手机")
+            ->setCellValue("E1", "头像地址")
+            ->setCellValue("F1", "登录ip")
+            ->setCellValue("G1", "登录时间");
+        $i = 2;
+        foreach($users as $data){
+            $PHPSheet->setCellValue("A" . $i, $data['id'])
+                ->setCellValue("B" . $i, $data['user_name'])
+                ->setCellValue("C" . $i, $data['email'])
+                ->setCellValue("D" . $i, $data['phone'])
+                ->setCellValue("E" . $i, $data['user_logo'])
+                ->setCellValue("F" . $i, $data['last_ip'])
+                ->setCellValue("G" . $i, $data['last_time']);
+            $i++;
+        }
+
+        $PHPWriter = \PHPExcel_IOFactory::createWriter($PHPExcel, "Excel2007");
+        header('Content-Disposition: attachment;filename="会员表单数据.xlsx"');
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        $PHPWriter->save("php://output"); //表示在$path路径下面生成demo.xlsx文件
+    }
+
 }
