@@ -86,13 +86,13 @@ class User extends Controller
     }
 
     public function userExcel(){
-
+        import('phpoffice.phpexcel.Classes.PHPExcel',VENDOR_PATH,'.php');
         $users = UserModel::all();     //数据库查询
         $path = dirname(__FILE__); //找到当前脚本所在路径
 
-        vendor("PHPExcel.PHPExcel"); //方法一
 
-        $PHPExcel = new \PHPExcel();
+
+        $PHPExcel =new \PHPExcel();
         $PHPSheet = $PHPExcel->getActiveSheet();
         $PHPSheet->setTitle("demo"); //给当前活动sheet设置名称
         $PHPSheet->setCellValue("A1", "ID")
@@ -109,8 +109,8 @@ class User extends Controller
                 ->setCellValue("C" . $i, $data['email'])
                 ->setCellValue("D" . $i, $data['phone'])
                 ->setCellValue("E" . $i, $data['user_logo'])
-                ->setCellValue("F" . $i, $data['last_ip'])
-                ->setCellValue("G" . $i, $data['last_time']);
+                ->setCellValue("F" . $i, $data['last_login_ip'])
+                ->setCellValue("G" . $i, $data['last_login_time']);
             $i++;
         }
 
