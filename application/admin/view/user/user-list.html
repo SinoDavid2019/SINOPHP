@@ -1,4 +1,7 @@
 {include file='public/_meta'/}
+<script type="text/javascript" src="__STATIC__/hadmin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<!--<script type="text/javascript" src="__STATIC__/hadmin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>-->
+<script type="text/javascript" src="__STATIC__/hadmin/lib/layui/layui.js"></script>
 <nav class="breadcrumb">
     <i class="Hui-iconfont">&#xe67f;</i>
     首页 <span class="c-gray en">&gt;</span>
@@ -11,9 +14,9 @@
     <form action="{:url('admin/user/index')}" method="post">
         <div class="text-c">
             日期范围：
-            <input type="text" onfocus="WdatePicker()" id="logmin" name="logmin" class="input-text Wdate" style="width:120px;">
+            <input type="text" name="logmin" class="input-text" id="countTimestart" onfocus="selecttime(1)"  style="width:120px;" >
             -
-            <input type="text" onfocus="WdatePicker()" id="logmax" name="logmax" class="input-text Wdate" style="width:120px;">
+            <input type="text" name="logmax" class="input-text" id="countTimeend" onfocus="selecttime(2)"  style="width:120px;">
             <input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="" name="keyword">
             <button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜会员</button>
         </div>
@@ -27,7 +30,7 @@
 				添加用户</a>
             <a href="{:url('admin/user/userExcel')}" class="btn btn-secondary radius"><i class="Hui-iconfont">&#xe600;</i>导出会员信息</a>
 		</span>
-        <span class="r">共有数据：<strong>88</strong> 条</span> </div>
+        <span class="r">共有数据：<strong>{$num}</strong> 条</span> </div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-hover table-bg table-sort">
             <thead>
@@ -87,3 +90,24 @@
         </table>
     </div>
 </div>
+<script type="text/javascript" src="__STATIC__/hadmin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="__STATIC__/hadmin/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.table-sort').dataTable({
+            "aaSorting": [[ 1, "desc" ]],//默认第几个排序
+            "bStateSave": true,//状态保存
+            "aLengthMenu":[5,10,15,20],
+            "aoColumnDefs": [
+                //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+                {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+            ]
+        });
+
+    });
+    function member_add(title,url,w,h) {
+        layer_show(title,url,w,h);
+    }
+
+</script>
+{include file='public/_footer'/}

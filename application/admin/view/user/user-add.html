@@ -1,0 +1,148 @@
+{include file="public/_meta"/}
+<article class="page-container">
+    <form  class="form form-horizontal" id="form-addUser">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="请输入用户名（必需）" id="user_name" name="user_name">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="请输入密码（必需）" id="password" name="password">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>头像：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input id="file_upload" type="file" multiple="true">
+                <img style="display: none" id="upload_org_code_img" src="" width="50" height="50">
+                <input id="file_upload_image" name="image" type="hidden" multiple="true" value="">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="请输入手机号（必需）" id="phone" name="phone">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>年龄：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="请输入年龄（必需）" id="age" name=age">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="请输入邮箱（必需）" name="email" id="email">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>状态：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input type="radio" id="status-1" name="status" value="1"  checked>
+                    <label for="status-1">已启用</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="status-0" name="status" value="0">
+                    <label for="status-0">已禁用</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" onclick="check()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+{include file="public/_footer" /}
+<script type="text/javascript" src="__STATIC__/hadmin/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__STATIC__/hadmin/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__STATIC__/hadmin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="__STATIC__/hadmin/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/hadmin/lib/ueditor/1.4.3/ueditor.all.min.js"></script>
+<script type="text/javascript" src="__STATIC__/hadmin/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/image.js"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $('#form-addUser').validate({
+            rule:{
+                user_name:{
+                    required:true
+                },
+                password:{
+                    required:true
+                }
+            },
+            onkeyup: false,
+            focusCleanup: true,
+            success: "valid",
+            submitHandler: function (form) {
+            }
+        });
+        var ue = UE.getEditor('editor');
+
+    });
+
+    function check() {
+
+        var user_name = $.trim($('#user_name').val());
+        var email = $.trim($('#email').val());
+        var age = $.trim($('#age').val());
+        var phone = $.trim($('#phone').val());
+        var password = $.trim($('#password').val());
+        var status = $('input[name=status]:checked').val();
+        var logo=$('#upload_org_code_img').attr('src');
+        if(user_name=="" || email=="" || phone=="" || password==""||logo==""){
+            layer.msg('请填写信息',{icon:2,time:2000});
+            return false;
+        }
+        var formData = new FormData();
+        formData.append("user_logo", logo);
+        formData.append("user_name", user_name);
+        formData.append("age", age);
+        formData.append("email", email);
+        formData.append("phone", phone);
+        formData.append("password", password);
+        formData.append("status", status);
+        $.ajax({
+            url:"{:url('admin/user/addUser')}",
+            type:'POST',
+            data:formData,
+            cache: false,
+            contentType: false,    //不可缺
+            processData: false,    //不可缺
+            success:function(data){
+                var msg=data.msg;
+                if(data.code == 1){
+                    layer.msg(msg, {
+                        icon: 1,
+                        time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                    }, function(){
+                        var index = parent.layer.getFrameIndex(window.name);
+                        //parent.$('.btn-primary').click();
+                        window.parent.location.reload();
+                        parent.layer.close(index);
+                    });
+                }else{
+                    layer.msg(msg,{icon:2,time:2000});
+                }
+            }
+        });
+
+    }
+
+
+</script>
+</body>
+</html>
