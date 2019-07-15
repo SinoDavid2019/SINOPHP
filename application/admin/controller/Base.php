@@ -8,6 +8,7 @@
 namespace app\admin\controller;
 use think\Controller;
 use think\Session;
+use app\admin\model\Menu as MenuModel;
 
 /**
  * 后台基础类库
@@ -45,6 +46,11 @@ class Base extends Controller{
         if(empty($admin_id)){
             $this->redirect("admin/login/login");
         }
+
+        $menuInfo=MenuModel::getMenu();
+        $this->assign('menuInfo',$menuInfo);
+
+
 
     }
 
