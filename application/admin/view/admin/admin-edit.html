@@ -1,34 +1,35 @@
-<!--header-->
-{include file="public/meta" /}
+{include file='public/meta'/}
 <article class="page-container">
     <form class="form form-horizontal" id="form-admin-add">
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员：</label>
+            <!--隐藏域 id-->
+            <input type="hidden" name="id" id="id" value="{$data.id}">
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="" placeholder="" id="adminName" name="adminName">
+                <input type="text" class="input-text" value="{$data.username}" placeholder="" id="adminName" name="adminName">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
+                <input type="password" class="input-text" autocomplete="off" value="{$data.password}" placeholder="密码" id="password" name="password">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="password2" name="password2">
+                <input type="password" class="input-text" autocomplete="off"  value="{$data.password}" placeholder="确认新密码" id="password2" name="password2">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>是否启用：</label>
             <div class="formControls col-xs-8 col-sm-9 skin-minimal">
                 <div class="radio-box">
-                    <input name="status" type="radio" id="sex-1" value="1" checked>
+                    <input name="status" type="radio" id="sex-1" value="1" {if condition="$data.status eq 1"}checked{/if}>
                     <label for="sex-1">是</label>
                 </div>
                 <div class="radio-box">
-                    <input type="radio" id="sex-2" name="status" value="2">
+                    <input type="radio" id="sex-2" name="status" value="2" {if condition="$data.status eq 2"}checked{/if}>
                     <label for="sex-2">否</label>
                 </div>
             </div>
@@ -36,25 +37,32 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
+                <input type="text" class="input-text" value="{$data.phone}" placeholder="" id="phone" name="phone">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" placeholder="@" name="email" id="email">
+                <input type="text" class="input-text" placeholder="@" name="email" id="email" value="{$data.email}">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">角色：</label>
             <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
 			<select class="select" name="adminRole" id="adminRole" size="1">
-				{volist name="data" id="admin"}
-				<option value="{$admin.role_id}">{$admin.role_name}</option>
-				{/volist}
+				{volist name="admins" id="admin"}
+				<option value="{$admin.role_id}" {if condition="$admin.role_id eq $data.role_id"}selected{/if}>{$admin.role_name}</option>
+                {/volist}
 			</select>
 			</span> </div>
         </div>
+        <!--<div class="row cl">-->
+        <!--<label class="form-label col-xs-4 col-sm-3">备注：</label>-->
+        <!--<div class="formControls col-xs-8 col-sm-9">-->
+        <!--<textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="$.Huitextarealength(this,100)"></textarea>-->
+        <!--<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>-->
+        <!--</div>-->
+        <!--</div>-->
         <div class="row cl">
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
                 <input class="btn btn-primary radius" onclick="check()" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
@@ -62,7 +70,7 @@
         </div>
     </form>
 </article>
-{include file="public/footer" /}
+{include file='public/footer'/}
 <script type="text/javascript" src="__STATIC__/hadmin/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
 <script type="text/javascript" src="__STATIC__/hadmin/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="__STATIC__/hadmin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
@@ -134,9 +142,11 @@
             layer.msg('请填写信息',{icon:2,time:2000});
             return false;
         }
+        var id=$("#id").val();
+        console.log(id);
         $.post(
-            "{:url('admin/admin/addAdmin')}",
-            {names:names,email:email,phone:phone,password:password,status:status,role_id:role_id},
+            "{:url('admin/admin/editAdmin')}",
+            {names:names,email:email,phone:phone,password:password,status:status,role_id:role_id,id:id},
             function (data) {
                 var msg=data.msg;
                 if(data.code == 1){
@@ -156,5 +166,3 @@
 
     }
 </script>
-</body>
-</html>

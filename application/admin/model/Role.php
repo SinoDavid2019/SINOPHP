@@ -48,4 +48,15 @@ class Role extends Model
         }
     }
 
+    public static function getRoleInfo($roleID){
+        $info=self::where('role_id','=',$roleID)->find();
+        if(empty($info)){
+            return false;
+        }else{
+            $menuID_arr=explode(',',$info['menu_id']);
+            $info['menu']=$menuID_arr;
+            return $info;
+        }
+    }
+
 }
