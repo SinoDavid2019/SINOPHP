@@ -11,7 +11,7 @@ namespace app\admin\controller;
 
 use think\Controller;
 
-class Permission extends Controller
+class Permission extends Base
 {
 
 }

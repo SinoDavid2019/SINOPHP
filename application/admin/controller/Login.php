@@ -45,7 +45,7 @@ class Login extends Controller
 
                 //验证密码
                 if($pwd!=$userInfo->password){
-                    $this->error("密码错误请从新输入");
+                    $this->error("密码错误请重新输入");
                 }
 
                 if(!captcha_check($captcha)){
@@ -55,8 +55,8 @@ class Login extends Controller
                 //判断用户是否记住密码
                 if ($rempsw==1){
                     //记住密码   存cookie中
-                    \cookie('cu',trim($name),3600*24*30);
-                    \cookie('CSDFDSA',trim($pwd),3600*24*30);
+                    cookie('cu',trim($name),3600*24*30);
+                    cookie('CSDFDSA',trim($pwd),3600*24*30);
                 }else{
                     //删除cookie、
                     Cookie::delete('cu');

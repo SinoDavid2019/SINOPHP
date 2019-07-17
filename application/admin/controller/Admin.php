@@ -8,13 +8,12 @@
 
 namespace app\admin\controller;
 
+use app\admin\model\AdminUser as AdminUserModel;
 use app\admin\model\Menu as MenuModel;
 use app\admin\model\Role as RoleModel;
-use app\admin\model\AdminUser as AdminUserModel;
 use app\common\lib\IAuth;
-use think\Controller;
 
-class Admin extends Controller
+class Admin extends Base
 {
 
     public function index(){
@@ -36,7 +35,7 @@ class Admin extends Controller
     public function addAdmin()
     {
 
-        if(\request()->isPost()){
+        if(request()->isPost()){
             $insert_data=array();
             $insert_data["username"]=input("names");
             $insert_data["email"]=input("email");
@@ -67,7 +66,7 @@ class Admin extends Controller
     public function editAdmin(){
         $id=input("id");
         $data=AdminUserModel::where(array("id"=>$id))->find();
-        if(\request()->isPost()){
+        if(request()->isPost()){
             $insert_data=array();
             $insert_data["username"]=input("names");
             $insert_data["email"]=input("email");
@@ -112,7 +111,7 @@ class Admin extends Controller
     }
 
     public function addRole(){
-        if(\request()->isPost()){
+        if(request()->isPost()){
             $insert_data=array();
             $insert_data["role_name"]=input("name");
             $insert_data["desc"]=input("desc");
@@ -217,7 +216,7 @@ class Admin extends Controller
         if (empty($info)){
             $this->error("信息有误");
         }
-        if (\request()->isPost()){
+        if (request()->isPost()){
             $insert_data=array();
             $insert_data['parent_id'] = input('parent_id');
             $insert_data['url'] = input('url');

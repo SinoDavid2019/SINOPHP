@@ -14,6 +14,40 @@ use think\Model;
 
 class Role extends Model
 {
+    public static function getAuthInfo($role_id){
+        if (empty($role_id)){
+            return null;
+        }
+        $roleInfo=self::where(array('role_id'=>$role_id))->find();
+        $menuid_array=explode(',',$roleInfo["menu_id"]);
+        $menuInfo=Menu::where('id','in',$menuid_array)
+            ->field("url")
+            ->select();
+        if (!empty($menuInfo)){
+            return $menuInfo;
+        }else{
+            return null;
+        }
+    }
+
+    public static function getMenuInfo($role_id){
+        if (empty($role_id)){
+            return null;
+        }
+        $roleInfo=self::where(array('role_id'=>$role_id))
+            ->find();
+        $menuid_array=explode(',',$roleInfo["menu_id"]);
+
+        $info=Menu::getMenu($menuid_array);
+
+        if (!empty($info)){
+            return $info;
+        }else{
+            return null;
+        }
+    }
+
+
     public static function getAdminRole(){
         $result=self::select();
         foreach ($result as $key=>$value){

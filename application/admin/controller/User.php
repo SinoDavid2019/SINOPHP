@@ -13,7 +13,7 @@ use app\common\lib\IAuth;
 use think\Controller;
 use app\admin\model\User as UserModel;
 
-class User extends Controller
+class User extends Base
 {
 
     public function index(){

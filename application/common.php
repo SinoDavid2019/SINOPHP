@@ -23,6 +23,14 @@ function getCatName($catId) {
     return !empty($cats[$catId]) ? $cats[$catId] : '';
 }
 
+function getActionUrl(){
+    $module = request()->module();
+    $controller = request()->controller();
+    $action = request()->action();
+    return strtolower($module.'/'.$controller.'/'.$action);
+
+}
+
 /**
  * 判断是否是推荐
  * @param $str

@@ -12,7 +12,7 @@ namespace app\admin\controller;
 use think\Controller;
 use app\admin\model\Menu as MenuModel;
 
-class Menu extends Controller
+class Menu extends Base
 {
 
     public function index(){
