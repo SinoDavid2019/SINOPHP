@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50724
 File Encoding         : 65001
 
-Date: 2019-07-15 16:39:24
+Date: 2019-07-17 15:13:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,18 +31,19 @@ CREATE TABLE `tp_admin_user` (
   `create_time` int(10) DEFAULT NULL,
   `update_time` int(10) DEFAULT NULL,
   `num` int(10) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `USERNAME_UK` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_admin_user
 -- ----------------------------
-INSERT INTO `tp_admin_user` VALUES ('1', 'admin', '1002d9d50400e9220b2e90eea3b397b7', null, '1', '1', '127.0.0.1', '2019-07-15 13:20:16', '1560475231', '1563168016', null);
-INSERT INTO `tp_admin_user` VALUES ('2', 'sino', '1002d9d50400e9220b2e90eea3b397b7', null, '1', '1', null, null, '1562745035', '1562745035', null);
-INSERT INTO `tp_admin_user` VALUES ('3', 'weihailong', '1002d9d50400e9220b2e90eea3b397b7', null, '1', '1', null, null, '1562745053', '1562745053', null);
-INSERT INTO `tp_admin_user` VALUES ('4', '魏海龙', '75d7e08bae9d62b4633b97b3da7e13d6', null, '1', '1', null, null, '1562745071', '1562745071', null);
-INSERT INTO `tp_admin_user` VALUES ('5', '张无忌', '75d7e08bae9d62b4633b97b3da7e13d6', null, '1', '1', null, null, '1562745088', '1562745088', null);
+INSERT INTO `tp_admin_user` VALUES ('1', 'admin', '1002d9d50400e9220b2e90eea3b397b7', null, '1', '1', '127.0.0.1', '2019-07-17 15:11:15', '1563334556', '1563347475', null, '15294182360', '1085550637@qq.com');
+INSERT INTO `tp_admin_user` VALUES ('8', 'weihl', '1002d9d50400e9220b2e90eea3b397b7', null, '6', '1', '127.0.0.1', '2019-07-17 14:28:14', '1563334793', '1563344894', null, '15294182360', '1085552595@qq.com');
+INSERT INTO `tp_admin_user` VALUES ('9', 'zhangdan', '1002d9d50400e9220b2e90eea3b397b7', null, '1', '1', '127.0.0.1', '2019-07-17 14:40:59', '1563345626', '1563345659', null, '15294182360', '105555@qq.com');
+INSERT INTO `tp_admin_user` VALUES ('10', 'guanliyuan', '1002d9d50400e9220b2e90eea3b397b7', null, '6', '1', '127.0.0.1', '2019-07-17 15:09:38', '1563346059', '1563347378', null, '1120002220', '1200222@qq.com');
 
 -- ----------------------------
 -- Table structure for tp_menu
@@ -50,7 +51,7 @@ INSERT INTO `tp_admin_user` VALUES ('5', '张无忌', '75d7e08bae9d62b4633b97b3d
 DROP TABLE IF EXISTS `tp_menu`;
 CREATE TABLE `tp_menu` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `status` tinyint(4) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT '1',
   `parent_id` tinyint(4) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
@@ -58,7 +59,7 @@ CREATE TABLE `tp_menu` (
   `type` varchar(10) DEFAULT 'menu',
   `icon` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_menu
@@ -73,6 +74,30 @@ INSERT INTO `tp_menu` VALUES ('19', '1', '18', '会员列表', 'admin/user/index
 INSERT INTO `tp_menu` VALUES ('21', '1', '0', '管理员管理', null, '4', 'menu', '&#xe616');
 INSERT INTO `tp_menu` VALUES ('22', '1', '21', '角色管理', 'admin/admin/role', '1', 'menu', '&#xe681');
 INSERT INTO `tp_menu` VALUES ('23', '1', '21', '权限管理', 'admin/admin/permission', '2', 'menu', '&#xe681');
+INSERT INTO `tp_menu` VALUES ('29', '1', '15', '添加新闻资讯权限', 'admin/admin/role', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('30', '1', '17', '菜单设置权限', 'admin/admin/role', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('31', '1', '21', '管理员列表', 'admin/admin/index', '3', 'menu', '');
+INSERT INTO `tp_menu` VALUES ('32', '1', '14', '查看新闻资讯列表权限', 'admin/news/index', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('33', '1', '14', '新增新闻资讯权限', 'admin/news/add', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('34', '1', '14', '编辑新闻资讯权限', 'admin/news/edit', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('35', '1', '14', '删除新闻资讯权限', 'admin/news/delete', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('36', '1', '17', '查看菜单列表权限', 'admin/menu/index', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('37', '1', '17', '新增菜单权限', 'admin/menu/addmenu', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('38', '1', '17', '修改菜单权限', 'admin/menu/editmenu', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('39', '1', '17', '删除菜单权限', 'admin/menu/delmenu', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('40', '1', '19', '会员列表查看权限', 'admin/user/index', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('41', '1', '19', '新增会员权限', 'admin/user/adduser', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('42', '1', '19', '导出会员信息表', 'admin/user/userexcel', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('43', '1', '22', '添加角色权限', 'admin/admin/addrole', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('44', '1', '22', '编辑角色权限', 'admin/admin/editrole', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('45', '1', '22', '删除角色权限', 'admin/admin/delrole', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('46', '1', '23', '删除权限', 'admin/admin/delPermission', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('47', '1', '23', '添加权限', 'admin/admin/addPermission', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('48', '1', '23', '修改权限', 'admin/admin/editPermission', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('49', '1', '31', '查看管理员信息列表权限', 'admin/admin/index', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('50', '1', '31', '新增管理员权限', 'admin/admin/addAdmin', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('51', '1', '31', '修改管理员信息权限', 'admin/admin/editAdmin', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('52', '1', '31', '删除管理员权限', 'admin/admin/delAdmin', null, 'per', null);
 
 -- ----------------------------
 -- Table structure for tp_news
@@ -149,14 +174,15 @@ CREATE TABLE `tp_role` (
   `role_name` varchar(255) DEFAULT '',
   `desc` varchar(255) DEFAULT NULL,
   `menu_id` varchar(255) DEFAULT NULL,
-  `modified` varchar(255) DEFAULT NULL,
+  `update_time` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_role
 -- ----------------------------
-INSERT INTO `tp_role` VALUES ('1', '超级管理员', '超级管理员', '1,2,3,4,5', null);
+INSERT INTO `tp_role` VALUES ('1', '超级管理员', '超级管理员', '13,14,32,33,34,35,15,29,16,17,30,36,37,38,39,18,19,40,41,42,21,22,43,44,45,23,46,47,48,31,49,50,51,52', '1563334541');
+INSERT INTO `tp_role` VALUES ('6', '新闻资讯管理员', '负责对新闻资讯板块的维护工作', '13,14,32,33,34,35,15,29', '1563347243');
 
 -- ----------------------------
 -- Table structure for tp_user
