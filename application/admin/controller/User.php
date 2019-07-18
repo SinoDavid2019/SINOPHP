@@ -85,6 +85,56 @@ class User extends Base
 
     }
 
+    public function editUser(){
+        $id=input('id');
+        $userInfo=UserModel::get($id);
+        if(empty($userInfo)){
+            $this->error('参数错误');
+        }
+        if(request()->isPost()){
+            $insert_array=array();
+            $insert_array["user_name"]=input("user_name");
+            $insert_array["password"]=IAuth::setPassword(input("password"));
+            $insert_array["age"]=input("age");
+            $insert_array["email"]=input("email");
+            $insert_array["phone"]=input("phone");
+            $insert_array["status"]=input("status");
+            $insert_array["last_login_time"]=time();
+            $insert_array["last_login_ip"]=request()->ip();
+            $insert_array["create_time"]=time();
+            $insert_array["update_time"]=time();
+            $insert_array["user_logo"]=input("image");
+            $browser=$_SERVER['HTTP_USER_AGENT'];
+            $insert_array["user_browser"]=$browser;
+            if (!empty($browser)) {
+                if (preg_match('/win/i', $browser)) {
+                    $insert_array["user_system"]="Windows";
+                } else if (preg_match('/mac/i', $browser)) {
+                    $insert_array["user_system"]="Mac";
+                } else if (preg_match('/linux/i', $browser)) {
+                    $insert_array["user_system"]="Linux";
+                } else if (preg_match('/unix/i', $browser)) {
+                    $insert_array["user_system"]="Unix";
+                } else if (preg_match('/bsd/i', $browser)) {
+                    $insert_array["user_system"]="BSD";
+                } else {
+                    $insert_array["user_system"]="没有此系统";
+                }
+            } else {
+                return 'unknow';
+            }
+            $result=UserModel::where("id",$id)->update($insert_array);
+            if ($result){
+                $this->success("编辑成功");
+            }else{
+                $this->error("编辑失败");
+            }
+        }
+        $this->assign("data",$userInfo);
+
+        return $this->fetch('user-edit');
+    }
+
     public function userExcel(){
         import('phpoffice.phpexcel.Classes.PHPExcel',VENDOR_PATH,'.php');
         $users = UserModel::all();     //数据库查询

@@ -46,7 +46,7 @@
         </div>
         <div class="row cl">
             <div class="col-9 col-offset-3">
-                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" onclick="check()">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
             </div>
         </div>
     </form>
@@ -79,50 +79,42 @@
             focusCleanup:true,
             success:"valid",
             submitHandler:function(form){
-                //$(form).ajaxSubmit();
-                // var index = parent.layer.getFrameIndex(window.name);
-                //parent.$('.btn-refresh').click();
-                // parent.layer.close(index);
+                var url = $.trim($('#url').val());
+                var parent_id = $('#parent_id').val();
+                var name = $.trim($('#name').val());
+                var reg = /^[\u4E00-\u9FA5]{1,10}$/;
+                if (name==''||url=='') {
+                    // alert('请填写信息');
+                    layer.msg('请填写信息',{icon:2,time:2000});
+                    return false;
+                }
+                if(!reg.test(name)) {
+                    // alert("名称只支持中文字符");
+                    layer.msg('名称只支持中文字符',{icon:2,time:2000});
+                    return false;
+                }
+                $.post(
+                    "{:url('admin/admin/addPermission')}",
+                    {parent_id:parent_id,url:url,name:name},
+                    function (data) {
+                        var msg = data.msg;
+                        if(data.code == 1){
+                            layer.msg(msg, {
+                                icon: 1,
+                                time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                            }, function(){
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.$('.btn-refresh').click();
+                                window.parent.location.reload();
+                                parent.layer.close(index);
+                            });
+                        }else{
+                            layer.msg(msg,{icon:2,time:2000});
+                        }
+                    });
             }
         });
 
     });
 
-
-    function check(){
-        var url = $.trim($('#url').val());
-        var parent_id = $('#parent_id').val();
-        var name = $.trim($('#name').val());
-        var reg = /^[\u4E00-\u9FA5]{1,10}$/;
-        if (name==''||url=='') {
-            // alert('请填写信息');
-            layer.msg('请填写信息',{icon:2,time:2000});
-            return false;
-        }
-        if(!reg.test(name)) {
-            // alert("名称只支持中文字符");
-            layer.msg('名称只支持中文字符',{icon:2,time:2000});
-            return false;
-        }
-        $.post(
-            "{:url('admin/admin/addPermission')}",
-            {parent_id:parent_id,url:url,name:name},
-            function (data) {
-                var msg = data.msg;
-                if(data.code == 1){
-                    layer.msg(msg, {
-                        icon: 1,
-                        time: 2000 //2秒关闭（如果不配置，默认是3秒）
-                    }, function(){
-                        var index = parent.layer.getFrameIndex(window.name);
-                        parent.$('.btn-refresh').click();
-                        window.parent.location.reload();
-                        parent.layer.close(index);
-                    });
-                }else{
-                    layer.msg(msg,{icon:2,time:2000});
-                }
-            });
-
-    }
 </script>

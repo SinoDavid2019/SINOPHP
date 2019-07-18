@@ -92,7 +92,7 @@
             {/volist}
         <div class="row cl">
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-                <button  class="btn btn-secondary radius" onclick="check()"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                <button  class="btn btn-secondary radius"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
             </div>
         </div>
     </form>
@@ -137,7 +137,56 @@
             focusCleanup: true,
             success: "valid",
             submitHandler: function (form) {
-                singwaapp_save(form);// 需要小伙伴自定义一个singwaapp_save方法 用来处理抛送请求的哦
+                var id=$.trim($('#id').val());
+                var title=$.trim($('#title').val());
+                var catid=$('#catid').val();
+                var description=$.trim($('#description').val());
+                var small_title=$.trim($('#small_title').val());
+                var is_allowcomments=$('input[name=is_allowcomments]:checked').val();
+                var is_head_figure=$('input[name=is_head_figure]:checked').val();
+                var is_position=$('input[name=is_position]:checked').val();
+                var content=$('#ueditor_textarea_content').val();
+                var image=$('#upload_org_code_img').attr('src');
+                console.log(is_position);
+                if(title=="" || catid==""||small_title==""){
+                    layer.msg('请填写信息',{icon:2,time:2000});
+                    return false;
+                }
+                var formData = new FormData();
+                formData.append("id", id);
+                formData.append("title", title);
+                formData.append("small_title", small_title);
+                formData.append("catid", catid);
+                formData.append("description", description);
+                formData.append("is_allowcomments", is_allowcomments);
+                formData.append("is_head_figure", is_head_figure);
+                formData.append("is_position", is_position);
+                formData.append("content", content);
+                formData.append("image", image);
+                $.ajax({
+                    url:"{:url('admin/news/update')}",
+                    type:'POST',
+                    data:formData,
+                    cache: false,
+                    contentType: false,    //不可缺
+                    processData: false,    //不可缺
+                    success:function(data){
+                        var msg=data.msg;
+                        if(data.code == 1){
+                            layer.msg(msg, {
+                                icon: 1,
+                                time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                            }, function(){
+                                var index = parent.layer.getFrameIndex(window.name);
+                                // parent.$('.btn-primary').click();
+                                window.parent.location.reload();
+                                parent.layer.close(index);
+                            });
+                        }else{
+                            layer.msg(msg,{icon:2,time:2000});
+                        }
+                    }
+                });
             }
         });
 
@@ -145,58 +194,6 @@
 
     });
 
-    function check() {
-        var id=$.trim($('#id').val());
-        var title=$.trim($('#title').val());
-        var catid=$('#catid').val();
-        var description=$.trim($('#description').val());
-        var small_title=$.trim($('#small_title').val());
-        var is_allowcomments=$('input[name=is_allowcomments]:checked').val();
-        var is_head_figure=$('input[name=is_head_figure]:checked').val();
-        var is_position=$('input[name=is_position]:checked').val();
-        var content=$('#ueditor_textarea_content').val();
-        var image=$('#upload_org_code_img').attr('src');
-        console.log(is_position);
-        if(title=="" || catid==""||small_title==""){
-            layer.msg('请填写信息',{icon:2,time:2000});
-            return false;
-        }
-        var formData = new FormData();
-        formData.append("id", id);
-        formData.append("title", title);
-        formData.append("small_title", small_title);
-        formData.append("catid", catid);
-        formData.append("description", description);
-        formData.append("is_allowcomments", is_allowcomments);
-        formData.append("is_head_figure", is_head_figure);
-        formData.append("is_position", is_position);
-        formData.append("content", content);
-        formData.append("image", image);
-        $.ajax({
-            url:"{:url('admin/news/update')}",
-            type:'POST',
-            data:formData,
-            cache: false,
-            contentType: false,    //不可缺
-            processData: false,    //不可缺
-            success:function(data){
-                var msg=data.msg;
-                if(data.code == 1){
-                    layer.msg(msg, {
-                        icon: 1,
-                        time: 2000 //2秒关闭（如果不配置，默认是3秒）
-                    }, function(){
-                        var index = parent.layer.getFrameIndex(window.name);
-                        // parent.$('.btn-primary').click();
-                        window.parent.location.reload();
-                        parent.layer.close(index);
-                    });
-                }else{
-                    layer.msg(msg,{icon:2,time:2000});
-                }
-            }
-        });
-    }
 
 </script>
 </body>
