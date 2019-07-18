@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50724
 File Encoding         : 65001
 
-Date: 2019-07-17 15:13:01
+Date: 2019-07-18 15:50:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,15 +35,20 @@ CREATE TABLE `tp_admin_user` (
   `email` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `USERNAME_UK` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_admin_user
 -- ----------------------------
-INSERT INTO `tp_admin_user` VALUES ('1', 'admin', '1002d9d50400e9220b2e90eea3b397b7', null, '1', '1', '127.0.0.1', '2019-07-17 15:11:15', '1563334556', '1563347475', null, '15294182360', '1085550637@qq.com');
+INSERT INTO `tp_admin_user` VALUES ('1', 'admin', '1002d9d50400e9220b2e90eea3b397b7', null, '1', '1', '127.0.0.1', '2019-07-18 15:48:12', '1563334556', '1563436092', null, '15294182360', '1085550637@qq.com');
 INSERT INTO `tp_admin_user` VALUES ('8', 'weihl', '1002d9d50400e9220b2e90eea3b397b7', null, '6', '1', '127.0.0.1', '2019-07-17 14:28:14', '1563334793', '1563344894', null, '15294182360', '1085552595@qq.com');
 INSERT INTO `tp_admin_user` VALUES ('9', 'zhangdan', '1002d9d50400e9220b2e90eea3b397b7', null, '1', '1', '127.0.0.1', '2019-07-17 14:40:59', '1563345626', '1563345659', null, '15294182360', '105555@qq.com');
 INSERT INTO `tp_admin_user` VALUES ('10', 'guanliyuan', '1002d9d50400e9220b2e90eea3b397b7', null, '6', '1', '127.0.0.1', '2019-07-17 15:09:38', '1563346059', '1563347378', null, '1120002220', '1200222@qq.com');
+INSERT INTO `tp_admin_user` VALUES ('12', 'guanliyuan1', '768a1237756280d780e99e27f400ae30', null, '1', '1', null, null, '1563431321', null, null, '15294182360', '1200222@qq.com');
+INSERT INTO `tp_admin_user` VALUES ('13', 'guanliyuan2', '1002d9d50400e9220b2e90eea3b397b7', null, '1', '1', null, null, '1563431343', null, null, '15294182360', '15294182360@163.com');
+INSERT INTO `tp_admin_user` VALUES ('14', 'guanliyuan3', '1002d9d50400e9220b2e90eea3b397b7', null, '1', '1', null, null, '1563431377', null, null, '123', '111');
+INSERT INTO `tp_admin_user` VALUES ('15', 'guanliyuan32', '1002d9d50400e9220b2e90eea3b397b7', null, '1', '1', null, null, '1563431468', null, null, '15294182360', '15294182360@163.com');
+INSERT INTO `tp_admin_user` VALUES ('16', 'guanliyuan322', '1002d9d50400e9220b2e90eea3b397b7', null, '1', '1', null, null, '1563431547', null, null, '15294182360', '15294182360@163.com');
 
 -- ----------------------------
 -- Table structure for tp_menu
@@ -59,14 +64,13 @@ CREATE TABLE `tp_menu` (
   `type` varchar(10) DEFAULT 'menu',
   `icon` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_menu
 -- ----------------------------
 INSERT INTO `tp_menu` VALUES ('13', '1', '0', '资讯管理', null, '1', 'menu', '&#xe616');
 INSERT INTO `tp_menu` VALUES ('14', '1', '13', '资讯列表', 'admin/news/index', '1', 'menu', '&#xe6f3');
-INSERT INTO `tp_menu` VALUES ('15', '1', '13', '新增资讯', 'admin/news/add', '2', 'menu', '&#xe72b;');
 INSERT INTO `tp_menu` VALUES ('16', '1', '0', '菜单栏管理', null, '2', 'menu', '&#xe681');
 INSERT INTO `tp_menu` VALUES ('17', '1', '16', '菜单设置', 'admin/menu/index', '1', 'menu', '&#xe72b;');
 INSERT INTO `tp_menu` VALUES ('18', '1', '0', '会员管理', null, '3', 'menu', '&#xe6b4');
@@ -74,8 +78,6 @@ INSERT INTO `tp_menu` VALUES ('19', '1', '18', '会员列表', 'admin/user/index
 INSERT INTO `tp_menu` VALUES ('21', '1', '0', '管理员管理', null, '4', 'menu', '&#xe616');
 INSERT INTO `tp_menu` VALUES ('22', '1', '21', '角色管理', 'admin/admin/role', '1', 'menu', '&#xe681');
 INSERT INTO `tp_menu` VALUES ('23', '1', '21', '权限管理', 'admin/admin/permission', '2', 'menu', '&#xe681');
-INSERT INTO `tp_menu` VALUES ('29', '1', '15', '添加新闻资讯权限', 'admin/admin/role', null, 'per', null);
-INSERT INTO `tp_menu` VALUES ('30', '1', '17', '菜单设置权限', 'admin/admin/role', null, 'per', null);
 INSERT INTO `tp_menu` VALUES ('31', '1', '21', '管理员列表', 'admin/admin/index', '3', 'menu', '');
 INSERT INTO `tp_menu` VALUES ('32', '1', '14', '查看新闻资讯列表权限', 'admin/news/index', null, 'per', null);
 INSERT INTO `tp_menu` VALUES ('33', '1', '14', '新增新闻资讯权限', 'admin/news/add', null, 'per', null);
@@ -98,6 +100,12 @@ INSERT INTO `tp_menu` VALUES ('49', '1', '31', '查看管理员信息列表权�
 INSERT INTO `tp_menu` VALUES ('50', '1', '31', '新增管理员权限', 'admin/admin/addAdmin', null, 'per', null);
 INSERT INTO `tp_menu` VALUES ('51', '1', '31', '修改管理员信息权限', 'admin/admin/editAdmin', null, 'per', null);
 INSERT INTO `tp_menu` VALUES ('52', '1', '31', '删除管理员权限', 'admin/admin/delAdmin', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('53', '1', '0', '系统统计', null, '5', 'menu', '&#xe621');
+INSERT INTO `tp_menu` VALUES ('54', '1', '53', '会员统计', 'admin/echarts/user', '0', 'menu', '');
+INSERT INTO `tp_menu` VALUES ('55', '1', '14', '更新新闻资讯', 'admin/news/update', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('56', '1', '14', '上传图片权限', 'admin/image/upload', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('57', '1', '19', '更新会员信息权限', 'admin/user/edituser', null, 'per', null);
+INSERT INTO `tp_menu` VALUES ('59', '1', '14', '修改新闻发布状态权限', 'admin/news/status', null, 'per', null);
 
 -- ----------------------------
 -- Table structure for tp_news
@@ -123,7 +131,7 @@ CREATE TABLE `tp_news` (
   PRIMARY KEY (`id`),
   KEY `create_time` (`create_time`),
   KEY `title` (`title`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_news
@@ -160,10 +168,14 @@ INSERT INTO `tp_news` VALUES ('29', 'eywtqrubj', 'fhakjdhfu', '5', 'http://pt9uh
 INSERT INTO `tp_news` VALUES ('30', 'gsfgsfg', 'dfgsg', '2', 'http://pt9uheqjn.bkt.clouddn.com/2019/0710/098b7201907101434102579.png', '<p>sgsgsgsgsg</p>', 'sgsgsg', '1', '1', '1', null, null, '1562740458', '1562744686', '0', '0');
 INSERT INTO `tp_news` VALUES ('31', 'gfdgfgfd', 'fgdfg', '1', 'http://pt9uheqjn.bkt.clouddn.com/2019/0710/1809b201907101444031034.jpg', '<p>fdfdgdfgfg</p>', 'fgfg', '1', '1', '1', null, null, '1562741053', '1562744856', '1', '0');
 INSERT INTO `tp_news` VALUES ('32', 'dfdsfdsss', 'dfdsf', '1', 'http://pt9uheqjn.bkt.clouddn.com/2019/0710/a7a7c201907101446351621.jpg', '<p>sdfdsfdsffdss</p>', 'dsfdsf', '1', '1', '1', null, null, '1562741203', '1562743965', '-1', '0');
-INSERT INTO `tp_news` VALUES ('33', 'fgfdghhgdhg', 'dghdh', '3', 'http://pt9uheqjn.bkt.clouddn.com/2019/0710/59fd1201907101450477316.png', '<p>dhdhgdhdh</p>', 'dghdgh', '1', '1', '1', null, null, '1562741454', '1562744862', '0', '0');
-INSERT INTO `tp_news` VALUES ('34', 'zxcvzv', 'zvzvc', '1', 'http://pt9uheqjn.bkt.clouddn.com/2019/0710/1800c201907101453437733.jpg', '<p>zcvzcvzvc</p>', 'zcvzv', '1', '1', '1', null, null, '1562741628', '1562744836', '1', '0');
+INSERT INTO `tp_news` VALUES ('33', 'fgfdghhgdhg', 'dghdh', '3', 'http://putg61ymr.bkt.clouddn.com/2019/0718/385c0201907181533181983.png', '<p><iframe src=\"https://www.runoob.com/jquery/jquery-plugin-validate.html\" width=\"1000\" height=\"1000\" scrolling=\"yes\" frameborder=\"1\" align=\"left\"></iframe>dhdhgdhdh</p>', 'dghdgh', '1', '1', '1', null, null, '1562741454', '1563435259', '0', '0');
+INSERT INTO `tp_news` VALUES ('34', 'zxcvzv', 'zvzvc', '1', 'http://putg61ymr.bkt.clouddn.com/2019/0718/69ce8201907181531433728.png', '<p><img width=\"530\" height=\"340\" src=\"http://api.map.baidu.com/staticimage?center=103.788844,36.07398&zoom=16&width=530&height=340&markers=116.404,39.915\"/>zcvzcvzvc</p>', 'zcvzv', '1', '1', '1', null, null, '1562741628', '1563435178', '1', '0');
 INSERT INTO `tp_news` VALUES ('35', 'oiyo', 'yoiyio', '5', 'http://pt9uheqjn.bkt.clouddn.com/2019/0710/085ac201907101509199189.jpg', '<p>yioyoyoi</p>', '', '1', '1', '1', null, null, '1562742565', '1562743958', '-1', '0');
-INSERT INTO `tp_news` VALUES ('36', 'dasd', 'dasdasdd', '1', '', 'undefined', '', '1', '1', '1', null, null, '1562896194', '1562896194', '0', '0');
+INSERT INTO `tp_news` VALUES ('36', 'dasd', 'dasdasdd', '1', 'http://putg61ymr.bkt.clouddn.com/2019/0718/e6e58201907181531028544.jpg', '<p>大萨达大所多</p>', '', '1', '1', '1', null, null, '1562896194', '1563435082', '1', '0');
+INSERT INTO `tp_news` VALUES ('37', '发生过监考老师规划', '李经理开发公司监考老师梵蒂冈', '1', 'http://putg61ymr.bkt.clouddn.com/2019/0718/fc373201907181055385777.png', '<p>undefined</p>', '', '1', '1', '1', null, null, '1563418237', '1563434862', '1', '0');
+INSERT INTO `tp_news` VALUES ('38', '奥术大师多撒大声地撒多', '奥术大师多', '1', 'http://putg61ymr.bkt.clouddn.com/2019/0718/e77b2201907181439342241.png', '<p>奥术大师大所多撒大所多</p>', '', '1', '1', '1', null, null, '1563431982', '1563434858', '1', '0');
+INSERT INTO `tp_news` VALUES ('39', '萨达所大多所', '阿萨德', '1', '', '<p>阿斯顿撒大声道撒多</p>', '', '1', '1', '1', null, null, '1563434078', '1563434454', '-1', '0');
+INSERT INTO `tp_news` VALUES ('40', '萨顶顶', '阿斯达四大', '1', 'http://putg61ymr.bkt.clouddn.com/2019/0718/ca0ea201907181517381875.jpeg', '<p>阿斯达四大所大所多</p>', '', '1', '1', '1', null, null, '1563434263', '1563434450', '-1', '0');
 
 -- ----------------------------
 -- Table structure for tp_role
@@ -176,13 +188,13 @@ CREATE TABLE `tp_role` (
   `menu_id` varchar(255) DEFAULT NULL,
   `update_time` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_role
 -- ----------------------------
-INSERT INTO `tp_role` VALUES ('1', '超级管理员', '超级管理员', '13,14,32,33,34,35,15,29,16,17,30,36,37,38,39,18,19,40,41,42,21,22,43,44,45,23,46,47,48,31,49,50,51,52', '1563334541');
-INSERT INTO `tp_role` VALUES ('6', '新闻资讯管理员', '负责对新闻资讯板块的维护工作', '13,14,32,33,34,35,15,29', '1563347243');
+INSERT INTO `tp_role` VALUES ('1', '超级管理员', '超级管理员', '13,14,32,33,34,35,55,56,59,16,17,36,37,38,39,18,19,40,41,42,57,21,22,43,44,45,23,46,47,48,31,49,50,51,52,53,54', '1563435015');
+INSERT INTO `tp_role` VALUES ('6', '新闻资讯管理员', '负责对新闻资讯板块的维护工作', '13,14,32,33,34,35', '1563434974');
 
 -- ----------------------------
 -- Table structure for tp_user
@@ -205,21 +217,24 @@ CREATE TABLE `tp_user` (
   `user_browser` varchar(255) DEFAULT NULL,
   `user_system` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_user
 -- ----------------------------
-INSERT INTO `tp_user` VALUES ('1', 'weihailong', '123213123', '1085550637@qq.com', '15294182360', '33', 'http://pt9uheqjn.bkt.clouddn.com/2019/0618/f5e6c201906181140562554.jpeg', '127.0.0.1', '1560735358', '1560735358', '1560735358', '1', '1', null, null);
-INSERT INTO `tp_user` VALUES ('2', '魏海龙', '721356e61beb10a9a12d928347a8afa3', '15294182360@163.com', '15294182360', '222', 'http://pt9uheqjn.bkt.clouddn.com/2019/0711/d8483201907111551365040.jpg', '127.0.0.1', '1562831521', '1562831521', '1562831521', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Windows');
-INSERT INTO `tp_user` VALUES ('3', '魏海龙', '721356e61beb10a9a12d928347a8afa3', '15294182360@163.com', '15294182360', null, null, '127.0.0.1', '1562831521', '1562831521', '1562831521', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Windows');
-INSERT INTO `tp_user` VALUES ('4', 'zhangwuji', '721356e61beb10a9a12d928347a8afa3', '15294182360@163.com', '15294182360', '22', 'http://pt9uheqjn.bkt.clouddn.com/2019/0711/c8398201907111553539569.jpeg', '127.0.0.1', '1562831645', '1562831645', '1562831645', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Windows');
-INSERT INTO `tp_user` VALUES ('5', 'zhangwuji', '721356e61beb10a9a12d928347a8afa3', '15294182360@163.com', '15294182360', null, null, '127.0.0.1', '1562831645', '1562831645', '1562831645', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Windows');
-INSERT INTO `tp_user` VALUES ('6', 'fdaf', '721356e61beb10a9a12d928347a8afa3', '15294182360@163.com', '15294182360', '22', 'http://pt9uheqjn.bkt.clouddn.com/2019/0711/f9993201907111602292339.jpeg', '127.0.0.1', '1562832184', '1562832184', '1562832185', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Windows');
-INSERT INTO `tp_user` VALUES ('7', 'fasdfafdaf', '721356e61beb10a9a12d928347a8afa3', 'fasff', 'afafaf', null, null, '127.0.0.1', '1562832355', '1562832355', '1562832355', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Windows');
-INSERT INTO `tp_user` VALUES ('8', 'gsfgsg', '721356e61beb10a9a12d928347a8afa3', '15294182360@163.com', '15222', '12222', 'http://pt9uheqjn.bkt.clouddn.com/2019/0711/c7e8e201907111608283447.jpg', '127.0.0.1', '1562832519', '1562832519', '1562832519', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Windows');
-INSERT INTO `tp_user` VALUES ('9', '咖啡空间和', '721356e61beb10a9a12d928347a8afa3', '15294182360@163.com', '15294182360', '22', 'http://pt9uheqjn.bkt.clouddn.com/2019/0711/85b83201907111609299955.jpg', '127.0.0.1', '1562832580', '1562832580', '1562832580', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Windows');
-INSERT INTO `tp_user` VALUES ('10', '张无忌', '721356e61beb10a9a12d928347a8afa3', '15294182360@163.com', '15294182360', '33', 'http://pt9uheqjn.bkt.clouddn.com/2019/0712/247b3201907120927102622.jpeg', '127.0.0.1', '1562894842', '1562894842', '1562894842', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Windows');
-INSERT INTO `tp_user` VALUES ('11', '5', '721356e61beb10a9a12d928347a8afa3', '5', '5', '5', '', '127.0.0.1', '1562896638', '1562896638', '1562896638', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Windows');
-INSERT INTO `tp_user` VALUES ('12', '34', '721356e61beb10a9a12d928347a8afa3', '34', '34', '34', 'http://pt9uheqjn.bkt.clouddn.com/2019/0712/cc47b201907120959189520.png', '127.0.0.1', '1562896764', '1562896764', '1562896764', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Windows');
-INSERT INTO `tp_user` VALUES ('13', '魏海龙', '721356e61beb10a9a12d928347a8afa3', '15294182360@163.com', '15294182360', '22', 'http://pt9uheqjn.bkt.clouddn.com/2019/0712/077e1201907121023264854.jpg', '127.0.0.1', '2019-07-12 10:25:30', '1562898330', '1562898330', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Windows');
+INSERT INTO `tp_user` VALUES ('1', 'weihailong', '123213123', '1085550637@qq.com', '15294182360', '33', 'http://putg61ymr.bkt.clouddn.com/2019/0718/9ae08201907181138455838.jpeg', '127.0.0.1', '1560735358', '1560735358', '1560735358', '1', '1', null, 'Linux');
+INSERT INTO `tp_user` VALUES ('2', '魏海龙', '1002d9d50400e9220b2e90eea3b397b7', '15294182360@163.com', '15294182360', '42', 'http://putg61ymr.bkt.clouddn.com/2019/0718/9ae08201907181138455838.jpeg', '127.0.0.1', '1563421996', '1563421996', '1563421996', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36', 'Windows');
+INSERT INTO `tp_user` VALUES ('3', '魏海龙', '1002d9d50400e9220b2e90eea3b397b7', '15294182360@163.com', '15294182360', '18', 'http://putg61ymr.bkt.clouddn.com/2019/0718/9ae08201907181138455838.jpeg', '127.0.0.1', '1563421948', '1563421948', '1563421948', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36', 'Windows');
+INSERT INTO `tp_user` VALUES ('4', 'zhangwuji', '721356e61beb10a9a12d928347a8afa3', '15294182360@163.com', '15294182360', '22', 'http://putg61ymr.bkt.clouddn.com/2019/0718/9ae08201907181138455838.jpeg', '127.0.0.1', '1562831645', '1562831645', '1562831645', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Linux');
+INSERT INTO `tp_user` VALUES ('5', 'zhangwuji', '721356e61beb10a9a12d928347a8afa3', '15294182360@163.com', '15294182360', '43', 'http://putg61ymr.bkt.clouddn.com/2019/0718/9ae08201907181138455838.jpeg', '127.0.0.1', '1562831645', '1562831645', '1562831645', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Linux');
+INSERT INTO `tp_user` VALUES ('6', 'fdaf', '721356e61beb10a9a12d928347a8afa3', '15294182360@163.com', '15294182360', '22', 'http://putg61ymr.bkt.clouddn.com/2019/0718/9ae08201907181138455838.jpeg', '127.0.0.1', '1562832184', '1562832184', '1562832185', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Mac');
+INSERT INTO `tp_user` VALUES ('7', 'fasdfafdaf', '721356e61beb10a9a12d928347a8afa3', 'fasff', 'afafaf', '66', 'http://putg61ymr.bkt.clouddn.com/2019/0718/9ae08201907181138455838.jpeg', '127.0.0.1', '1562832355', '1562832355', '1562832355', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Mac');
+INSERT INTO `tp_user` VALUES ('8', 'gsfgsg', '721356e61beb10a9a12d928347a8afa3', '15294182360@163.com', '15222', '52', 'http://putg61ymr.bkt.clouddn.com/2019/0718/9ae08201907181138455838.jpeg', '127.0.0.1', '1562832519', '1562832519', '1562832519', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Mac');
+INSERT INTO `tp_user` VALUES ('9', '咖啡空间和', '721356e61beb10a9a12d928347a8afa3', '15294182360@163.com', '15294182360', '22', 'http://putg61ymr.bkt.clouddn.com/2019/0718/9ae08201907181138455838.jpeg', '127.0.0.1', '1562832580', '1562832580', '1562832580', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Windows');
+INSERT INTO `tp_user` VALUES ('10', '张无忌', '$2y$10$ZJZ4Agg2vx4ppGN2DSB0q.H742PI7dyuagPdnDVM2g/nPD8avf8xC', '15294182360@163.com', '15294182360', '33', 'http://putg61ymr.bkt.clouddn.com/2019/0718/9ae08201907181138455838.jpeg', '127.0.0.1', '1563421154', '1563421154', '1563421154', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36', 'Windows');
+INSERT INTO `tp_user` VALUES ('11', '5', '$2y$10$gMGMK7px1Z/g6XAPgG8eGurbIDyVntZqUq5O/o2A/pQ.6E1NNPD02', '5', '5', '25', 'http://putg61ymr.bkt.clouddn.com/2019/0718/9ae08201907181138455838.jpeg', '127.0.0.1', '1563421139', '1563421139', '1563421139', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36', 'Windows');
+INSERT INTO `tp_user` VALUES ('12', '34', '$2y$10$9EFNPJyYBIf0s8O5nJ4/D.48tvzJqpJjvK6sWJSmZhUPPHa8cvvvy', '34', '34', '34', 'http://putg61ymr.bkt.clouddn.com/2019/0718/9ae08201907181138455838.jpeg', '127.0.0.1', '1563421128', '1563421128', '1563421128', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36', 'Windows');
+INSERT INTO `tp_user` VALUES ('13', '魏海龙', '$2y$10$nAobsQd0R/2cOJoJwIf.DuEBI7898/9Z9Dz5bdbelya98r1uGtEny', '15294182360@163.com', '15294182360', '22', 'http://putg61ymr.bkt.clouddn.com/2019/0718/af525201907181138315025.png', '127.0.0.1', '1563421114', '1563421114', '1563421114', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36', 'Windows');
+INSERT INTO `tp_user` VALUES ('14', 'hjdklfhj', '721356e61beb10a9a12d928347a8afa3', '1200222@qq.com', '15294788541', '22', 'http://putg61ymr.bkt.clouddn.com/2019/0718/11d7f2019071810575578.jpg', '127.0.0.1', '2019-07-18 10:58:11', '1563418691', '1563418691', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36', 'Windows');
+INSERT INTO `tp_user` VALUES ('15', '魏海龙', '721356e61beb10a9a12d928347a8afa3', '111', '3333', '222', 'http://putg61ymr.bkt.clouddn.com/2019/0718/7a726201907181452032510.png', '127.0.0.1', '2019-07-18 14:52:08', '1563432728', '1563432728', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36', 'Windows');
+INSERT INTO `tp_user` VALUES ('16', '魏海龙', '721356e61beb10a9a12d928347a8afa3', '15294182360@163.com', '15294182360', '222', 'http://putg61ymr.bkt.clouddn.com/2019/0718/84d1d201907181459144687.png', '127.0.0.1', '2019-07-18 14:59:17', '1563433157', '1563433157', '1', null, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36', 'Windows');
