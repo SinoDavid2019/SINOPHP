@@ -8,6 +8,7 @@
 namespace app\api\controller\v1;
 
 use app\api\controller\Common;
+use app\admin\model\News as NewsModel;
 
 class Index extends Common{
 
@@ -16,10 +17,10 @@ class Index extends Common{
      * @return \think\response\Json
      */
     public function index(){
-        $head=model('News')->getIndexHeadNormalNews();
+        $head=NewsModel::getIndexHeadNormalNews();
 
         $head=$this->getDealNews($head);
-        $position=model('News')->getPositionNormalNews();
+        $position=NewsModel::getPositionNormalNews();
         $position=$this->getDealNews($position);
 
         $result=[

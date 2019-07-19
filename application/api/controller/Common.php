@@ -10,6 +10,7 @@ use app\common\lib\exception\ApiException;
 use app\common\lib\IAuth;
 use think\Cache;
 use think\Controller;
+use app\common\lib\Aes;
 
 
 /**
@@ -34,6 +35,7 @@ class Common extends Controller{
      */
     public function _initialize(){
         $this->checkRequestAuth();
+        //$this->TestAes();
     }
 
     /**
@@ -52,13 +54,25 @@ class Common extends Controller{
         }
 
         if(!IAuth::checkSignPass($headers)){
-            throw new ApiException('授权码sign失败',401);
+            throw new ApiException('授权码sign失效',401);
         }
 
         //sign写入缓存
         Cache::set($headers['sign'],1,config('app.app_sign_cache_time'));
 
         $this->headers=$headers;
+
+    }
+
+    public function TestAes(){
+        $data=[
+           'admin'=>'weihl'
+        ];
+        $string=IAuth::setSign($data);
+        //$as="eec0b8bce74f5c23128eb376d0d6e368";
+        echo $string;exit();
+       // echo (new Aes())->decrypt($as);
+
 
     }
 

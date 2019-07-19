@@ -8,8 +8,6 @@
 
 namespace app\admin\model;
 
-use think\Model;
-
 class News extends Base
 {
 
@@ -70,13 +68,13 @@ class News extends Base
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getIndexHeadNormalNews($num=4){
+    public static function getIndexHeadNormalNews($num=4){
         $condition=[
             'status'=>1,
             'is_head_figure'=>1,
         ];
         $order=['id'=>'desc'];
-        return $this->where($condition)->order($order)->field($this->_getQueryList())->limit($num)->select();
+        return self::where($condition)->order($order)->field(self::_getQueryList())->limit($num)->select();
 
     }
 
@@ -88,16 +86,16 @@ class News extends Base
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getPositionNormalNews($num=10){
+    public static function getPositionNormalNews($num=10){
         $condition=[
             'status'=>1,
             'is_position'=>1,
         ];
         $order=['id'=>'desc'];
-        return $this->where($condition)->order($order)->field($this->_getQueryList())->limit($num)->select();
+        return self::where($condition)->order($order)->field(self::_getQueryList())->limit($num)->select();
     }
 
-    private function _getQueryList(){
+    private static function _getQueryList(){
         return ['id','catid','title','status','image','read_count','create_time','is_position'];
     }
 
