@@ -19,7 +19,7 @@ class Image extends Base{
     /**
      * 上传图片到本地服务器
      */
-    public function upload0(){
+    public function upload(){
 
         $file=Request::instance()->file('file');
         $info=$file->move('upload');
@@ -37,7 +37,7 @@ class Image extends Base{
     /**
      * 上传文件到七牛云
      */
-    public function upload(){
+    public function upload0(){
 
         $img=Upload::image();
         if($img){
